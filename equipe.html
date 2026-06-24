@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan - Nossa Equipe</title>
+  <style>
+    body { background-color: #050507; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; }
+    .btn-voltar { background: #111; color: #aaa; border: 1px solid #222; padding: 8px 15px; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 20px; transition: 0.2s; }
+    .btn-voltar:hover { color: #8A2BE2; border-color: #8A2BE2; }
+    .container { max-width: 900px; margin: 0 auto; text-align: center; }
+    
+    .grid-equipe { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
+    .card-membro { background: linear-gradient(135deg, #0d0d11, #07070a); border: 1px solid #222; padding: 25px; border-radius: 12px; width: 240px; text-align: center; transition: 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+    .avatar { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; background: #222; border: 2px solid transparent; }
+    
+    /* Hover Temático */
+    .card-membro.adm:hover { border-color: #8A2BE2; box-shadow: 0 0 15px rgba(138,43,226,0.3); }
+    .card-membro.adm:hover .avatar { border-color: #8A2BE2; }
+    .card-membro.tradutor:hover { border-color: #ff3366; box-shadow: 0 0 15px rgba(255,51,102,0.3); }
+    .card-membro.tradutor:hover .avatar { border-color: #ff3366; }
+    .card-membro.editor:hover { border-color: #33ccff; box-shadow: 0 0 15px rgba(51,204,255,0.3); }
+    .card-membro.editor:hover .avatar { border-color: #33ccff; }
+
+    .cargo { font-weight: bold; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; }
+    .card-membro p { color: #999; font-size: 13px; line-height: 1.5; margin: 12px 0 0 0; text-align: justify; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="btn-voltar">⬅️ Voltar para o Início</a>
+
+    <h1 style="color:#8A2BE2; margin: 0 0 5px 0; font-size: 28px; text-shadow: 0 0 10px rgba(138,43,226,0.2);">🛡️ MESTRES DA GUILDA</h1>
+    <p style="color:#aaa; font-size:14px; margin-top:0;">Conheça a equipe dedicada envolvida na limpeza, tradução e edição dos projetos.</p>
+
+    <div class="grid-equipe">
+      <!-- Admin -->
+      <div class="card-membro adm">
+        <img src="https://placeholder.com" class="avatar" alt="Avatar">
+        <h3 style="margin: 5px 0 2px 0; font-size:18px;">SeuNick</h3>
+        <span class="cargo" style="color: #8A2BE2;">👑 Fundador & Líder</span>
+        <p>"Administro toda a infraestrutura da Scan, organizo cronogramas e aprovo a entrada de novos membros."</p>
+      </div>
+
+      <!-- Tradutor -->
+      <div class="card-membro tradutor">
+        <img src="https://placeholder.com" class="avatar" alt="Avatar">
+        <h3 style="margin: 5px 0 2px 0; font-size:18px;">MangaLover</h3>
+        <span class="cargo" style="color: #ff3366;">⚔️ Tradutor Coreano</span>
+        <p>"Minha missão é trazer o sentido exato das piadas, golpes e diálogos originais de forma fluida para nossa língua."</p>
+      </div>
+
+      <!-- Editor -->
+      <div class="card-membro editor">
+        <img src="https://placeholder.com" class="avatar" alt="Avatar">
+        <h3 style="margin: 5px 0 2px 0; font-size:18px;">TyperBoy</h3>
+        <span class="cargo" style="color: #33ccff;">🖌️ Editor Gráfico</span>
+        <p>"Limpo os balões originais, redesenho fundos complexos atingidos por onomatopeias e faço a tipografia das falas."</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
