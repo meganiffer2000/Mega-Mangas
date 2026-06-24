@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan - Doações</title>
+  <style>
+    body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; }
+    .btn-voltar { background: #222; color: #fff; border: 1px solid #333; padding: 8px 15px; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: bold; }
+    .container { max-width: 500px; margin: 0 auto; }
+    .painel-doacao { background: #0d0d11; border: 1px solid #222; border-radius: 8px; padding: 25px; }
+    .meta-info { display: flex; justify-content: space-between; font-size: 14px; font-weight: bold; margin-bottom: 6px; }
+    .barra-fundo { background: #222; height: 12px; border-radius: 6px; overflow: hidden; }
+    .barra-progresso { background: linear-gradient(90deg, #32bcad, #2ecc71); width: 75%; height: 100%; border-radius: 6px; }
+    .btn-pix { background: #32bcad; color: #fff; border: none; padding: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; font-size: 15px; margin-top: 15px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="btn-voltar">⬅️ Voltar para o Início</a>
+    <h1 style="color:#32bcad; margin-top: 0;">❤️ APOIE NOSSA SCAN</h1>
+
+    <div class="painel-doacao">
+      <div class="meta-box">
+        <div class="meta-info"><span style="color:#32bcad;">🎯 Custos do Servidor</span><span>R$ 150 / R$ 200</span></div>
+        <div class="barra-fundo"><div class="barra-progresso"></div></div>
+      </div>
+
+      <!-- Calculadora de Brindes -->
+      <div style="background:#141419; padding:15px; border-radius:6px; margin-top:20px;">
+        <h5 style="margin:0 0 10px 0; color:#32bcad; font-size:13px;">🎛️ CALCULADORA DE CARGOS VIP</h5>
+        <input type="number" id="valSimulado" oninput="calcularBrinde()" placeholder="Digite o valor da doação R$..." style="width:100%; padding:8px; background:#16161a; border:1px solid #333; border-radius:4px; color:#fff; outline:none; box-sizing:border-box;">
+        <p id="txtBrinde" style="font-size:12px; color:#2ecc71; font-weight:bold; margin:10px 0 0 0; text-align:center;"></p>
+      </div>
+
+      <button onclick="copiarPix()" id="btnPix" class="btn-pix">📋 Copiar Chave Pix</button>
+    </div>
+  </div>
+
+  <script>
+    function calcularBrinde() {
+      let v = parseFloat(document.getElementById("valSimulado").value); let t = document.getElementById("txtBrinde");
+      if(!v || v <= 0) { t.innerText = ""; return; }
+      t.innerText = v >= 20 ? "👑 Recompensa: Cargo VIP Supremo no Discord + Capítulos Antecipados!" : "🎁 Recompensa: Tag de Apoiador e nome nos créditos do site!";
+    }
+    function copiarPix() {
+      navigator.clipboard.writeText("suachavepix@email.com"); let b = document.getElementById("btnPix");
+      b.innerText = "✓ Código Copiado! Obrigado!"; b.style.background = "#2ecc71";
+    }
+  </script>
+</body>
+</html>
