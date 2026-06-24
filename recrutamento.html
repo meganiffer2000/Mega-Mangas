@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan - Recrutamento</title>
+  <style>
+    body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; }
+    .btn-voltar { background: #222; color: #fff; border: 1px solid #333; padding: 8px 15px; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: bold; }
+    .container { max-width: 600px; margin: 0 auto; text-align: center; }
+    .tab-box { background: #0d0d11; border: 1px solid #222; border-radius: 8px; overflow: hidden; margin-top: 20px; text-align: left; }
+    .tab-menu { display: flex; background: #0a0a0c; border-bottom: 1px solid #222; }
+    .tab-link { background: none; border: none; color: #aaa; padding: 15px; width: 100%; cursor: pointer; font-weight: bold; }
+    .tab-link:hover, .tab-link.active { color: #ff0055; border-bottom: 2px solid #ff0055; background: #111; }
+    .tab-conteudo { display: none; padding: 20px; font-size: 14px; line-height: 1.6; }
+    .urgencia { display: flex; justify-content: space-between; background: #16161a; padding: 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-top: 15px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="btn-voltar">⬅️ Voltar para o Início</a>
+    <h1 style="color:#ff0055; margin-bottom: 5px;">⚔️ RECRUTAMENTO DA STAFF</h1>
+    
+    <div class="tab-box">
+      <div class="tab-menu">
+        <button class="tab-link active" onclick="abas(event, 'trad')">Tradutor</button>
+        <button class="tab-link" onclick="abas(event, 'ed')">Editor</button>
+      </div>
+      <div id="trad" class="tab-conteudo" style="display: block;">
+        <span><strong>Requisitos:</strong> Ter domínio em Inglês, Japonês ou Coreano e boa ortografia.</span>
+        <div class="urgencia"><span>STATUS DA VAGA:</span><span style="color:#ff3333;">🔥 CRÍTICO / URGENTE</span></div>
+      </div>
+      <div id="ed" class="tab-conteudo">
+        <span><strong>Requisitos:</strong> Conhecimento básico em Photoshop ou Photopea para limpar e preencher balões.</span>
+        <div class="urgencia"><span>STATUS DA VAGA:</span><span style="color:#ffaa00;">⚠️ NECESSIDADE MODERADA</span></div>
+      </div>
+    </div>
+
+    <!-- Quiz Inteligente -->
+    <div style="background:#0d0d11; border:1px solid #222; border-radius:8px; padding:20px; margin-top:30px; text-align:left;">
+      <h3 style="color:#ff0055; margin:0 0 10px 0; font-size:15px;">📊 TESTE RÁPIDO: QUAL VAGA COMBINA COM VOCÊ?</h3>
+      <label style="font-size:13px;">O que você faz melhor no computador?</label>
+      <select id="q1" style="width:100%; padding:8px; background:#16161a; color:#fff; border:1px solid #333; border-radius:4px; margin-top:5px; margin-bottom:15px;">
+        <option value="idioma">Ler e traduzir textos estrangeiros</option>
+        <option value="arte">Editar imagens e alinhar fontes gráficas</option>
+      </select>
+      <button onclick="checarQuiz()" style="background:#ff0055; color:white; border:none; padding:10px; border-radius:4px; font-weight:bold; cursor:pointer; width:100%;">Analisar Perfil</button>
+      <p id="resQuiz" style="margin-top:15px; font-weight:bold; text-align:center; color:#00ffff; font-size:14px;"></p>
+    </div>
+  </div>
+
+  <script>
+    function abas(evt, id) {
+      let c = document.getElementsByClassName("tab-conteudo"); for (let i=0; i<c.length; i++) c[i].style.display = "none";
+      let l = document.getElementsByClassName("tab-link"); for (let i=0; i<l.length; i++) l[i].classList.remove("active");
+      document.getElementById(id).style.display = "block"; evt.currentTarget.classList.add("active");
+    }
+    function checarQuiz() {
+      let v = document.getElementById("q1").value;
+      document.getElementById("resQuiz").innerText = v === "idioma" ? "⚔️ Perfil Ideal: Tradutor!" : "🖌️ Perfil Ideal: Typesetter / Editor!";
+    }
+  </script>
+</body>
+</html>
