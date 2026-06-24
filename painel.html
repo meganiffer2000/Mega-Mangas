@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Admin - Gerador de Páginas</title>
+  <style>
+    body { background-color: #050507; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; }
+    .box-login, .container-admin { max-width: 650px; margin: 40px auto; background: #0d0d11; border: 1px solid #222; border-radius: 8px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+    .campo { width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 15px; background: #121216; border: 1px solid #222; border-radius: 4px; color: #fff; box-sizing: border-box; outline: none; }
+    .campo:focus { border-color: #ff0055; }
+    .btn { background: #ff0055; color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; font-size: 14px; }
+    .btn:hover { background: #ff3377; }
+    .secao { display: none; margin-top: 25px; border-top: 1px solid #222; padding-top: 20px; }
+    .menu-abas { display: flex; gap: 10px; margin-bottom: 20px; }
+    .aba-btn { background: #111; color: #aaa; border: 1px solid #222; padding: 10px; width: 100%; cursor: pointer; font-weight: bold; border-radius: 4px; }
+    .aba-btn.ativo { background: #ff0055; color: white; border-color: #ff0055; }
+    textarea.codigo-box { background: #000; color: #00ff00; font-family: monospace; font-size: 12px; height: 15px; }
+  </style>
+</head>
+<body>
+
+  <!-- Tela de Login Obrigatória -->
+  <div class="box-login" id="telaLogin">
+    <h2 style="color:#ff0055; margin-top:0; text-align:center;">🔑 AUTENTICAÇÃO REQUERIDA</h2>
+    <label>Digite a Senha Master do Painel:</label>
+    <input type="password" id="senhaMaster" class="campo" placeholder="•••••••••">
+    <button onclick="verificarSenha()" class="btn">Entrar no Sistema</button>
+  </div>
+
+  <!-- Painel Administrativo Bloqueado -->
+  <div class="container-admin" id="painelAdmin" style="display: none;">
+    <h2 style="color:#00ffff; margin-top:0; text-align:center;">⚙️ GERADOR DE CÓDIGO FONTE</h2>
+    <p style="font-size:12px; color:#aaa; text-align:center; margin-top:0;">Gere estruturas completas sem digitar uma única linha de HTML.</p>
+
+    <div class="menu-abas">
+      <button class="aba-btn ativo" id="btnAbaObra" onclick="mudarPainel('obra')">📁 Criar Nova Obra</button>
+      <button class="aba-btn" id="btnAbaCap" onclick="mudarPainel('capitulo')">📖 Criar Novo Capítulo</button>
+    </div>
+
+    <!-- Formulário Obra -->
+    <div id="secaoObra" style="display: block;">
+      <label>Nome do Mangá:</label>
+      <input type="text" id="nomeManga" class="campo" placeholder="Ex: Solo Leveling">
+      <label>URL da Imagem da Capa:</label>
+      <input type="text" id="capaManga" class="campo" placeholder="Ex: https://imgur.com">
+      <label>Texto da Sinopse:</label>
+      <textarea id="sinopseManga" rows="3" class="campo" placeholder="Insira o resumo..."></textarea>
+      <label>Gêneros (Separados por vírgula):</label>
+      <input type="text" id="generosManga" class="campo" placeholder="Ex: Ação, Isekai, Shonen">
+      <label>Link de Destino do Capítulo 01 (ex: capitulo-01.html):</label>
+      <input type="text" id="linkCapUm" class="campo" placeholder="Ex: capitulo-01.html">
+      <button onclick="gerarCodigoObra()" class="btn" style="background:#00ffff; color:#000;">⚡ Gerar e Copiar Código da Obra</button>
+    </div>
+
+    <!-- Formulário Capítulo -->
+    <div id="secaoCapitulo" class="secao">
+      <label>Título Completo do Capítulo:</label>
+      <input type="text" id="tituloCap" class="campo" placeholder="Ex: Solo Leveling - Capítulo 01">
+      <label>URLs das Páginas do Mangá (Cole uma por linha):</label>
+      <textarea id="urlsPaginas" rows="6" class="campo" placeholder="https://imgur.com"></textarea>
+      <button onclick="gerarCodigoCapitulo()" class="btn" style="background:#2ecc71; color:#000;">⚡ Gerar e Copiar Código do Leitor</button>
+    </div>
+
+    <!-- Caixa Oculta de Cópia Técnica -->
+    <textarea id="caixaCopia" class="codigo-box" readonly style="position: absolute; left: -9999px;"></textarea>
+  </div>
+
+  <script>
+    function verificarSenha() {
+      let senha = document.getElementById("senhaMaster").value;
+      if (senha === "123123999") {
+        document.getElementById("telaLogin").style.display = "none";
+        document.getElementById("painelAdmin").style.display = "block";
+      } else {
+        alert("Senha incorreta! Acesso negado.");
+      }
+    }
+
+    function mudarPainel(tipo) {
+      let obra = document.getElementById("secaoObra");
+      let cap = document.getElementById("secaoCapitulo");
+      let bObra = document.getElementById("btnAbaObra");
+      let bCap = document.getElementById("btnAbaCap");
+      
+      if(tipo === 'obra') {
+        obra.style.display = "block"; cap.style.display = "none";
+        bObra.classList.add("ativo"); bCap.classList.remove("ativo");
+      } else {
+        obra.style.display = "none"; cap.style.display = "block";
+        bObra.classList.remove("ativo"); bCap.classList.add("ativo");
+      }
+    }
+
+    function gerarCodigoObra() {
+      let nome = document.getElementById("nomeManga").value;
+      let capa = document.getElementById("capaManga").value;
+      let sinopse = document.getElementById("sinopseManga").value;
+      let generos = document.getElementById("generosManga").value;
+      let link = document.getElementById("linkCapUm").value;
+
+      if(!nome || !capa || !sinopse || !link) { alert("Preencha todos os campos fundamentais!"); return; }
+
+      let htmlObra = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${nome} - Ficha Técnica</title>
+  <style>
+    body { background:#000; color:#fff; font-family:sans-serif; padding:20px; }
+    .box { display:flex; gap:25px; flex-wrap:wrap; background:#0d0d11; padding:20px; border-radius:8px; border:1px solid #222; }
+    .capa { width:200px; height:280px; object-fit:cover; border-radius:6px; }
+    .btn { background:#ff0055; color:#fff; padding:10px 20px; text-decoration:none; font-weight:bold; border-radius:4px; display:inline-block; margin-top:15px; }
+  </style>
+</head>
+<body>
+  <a href="index.html" style="color:#aaa; text-decoration:none;">⬅️ Voltar</a>
+  <h1 style="color:#ff0055;">${nome}</h1>
+  <div class="box">
+    <img src="${capa}" class="capa">
+    <div style="flex:1;">
+      <h3>📚 Sinopse:</h3><p style="color:#ccc; line-height:1.6;">${sinopse}</p>
+      <p><strong>Gêneros:</strong> ${generos}</p>
+      <a href="${link}" class="btn">📖 Começar a Ler (Capítulo 01)</a>
+    </div>
+  </div>
+</body>
+</html>`;
+
+      executarCopia(htmlObra);
+    }
+
+    function gerarCodigoCapitulo() {
+      let titulo = document.getElementById("tituloCap").value;
+      let linhas = document.getElementById("urlsPaginas").value.split('\n');
+      let urlsValidas = linhas.filter(l => l.trim() !== "");
+
+      if(!titulo || urlsValidas.length === 0) { alert("Preencha o título e insira links válidos!"); return; }
+
+      let tagsImagens = urlsValidas.map(url => `    <img src="${url.trim()}" alt="Página">`).join('\n');
+
+      let htmlCap = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${titulo}</title>
+  <style>
+    body { background:#000; color:#fff; font-family:sans-serif; margin:0; padding:0; -webkit-user-select:none; user-select:none; }
+    .leitor { display:flex; flex-direction:column; align-items:center; width:100%; }
+    .leitor img { width:100%; max-width:800px; height:auto; display:block; pointer-events:none; }
+  </style>
+</head>
+<body>
+  <header style="background:#0a0a0c; padding:15px; text-align:center; border-bottom:1px solid #222;">
+    <a href="index.html" style="color:#fff; text-decoration:none; font-weight:bold;">🏠 Home</a> | <span style="color:#ff0055; font-weight:bold;">${titulo}</span>
+  </header>
+  <div class="leitor">
+${tagsImagens}
+  </div>
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+  <\/script>
+</body>
+</html>`;
+
+      executarCopia(htmlCap);
+    }
+
+    function ejecutarCopia(codigo) {
+      let caixa = document.getElementById("caixaCopia");
+      caixa.value = codigo;
+      caixa.select();
+      document.execCommand("copy");
+      alert("🚀 Código fonte completo gerado e copiado para sua Área de Transferência! Crie um arquivo .html e cole o conteúdo.");
+    }
+  </script>
+</body>
+</html>
