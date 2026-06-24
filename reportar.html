@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan - Reportar Erros</title>
+  <style>
+    body { background-color: #050507; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; }
+    .btn-voltar { background: #111; color: #aaa; border: 1px solid #222; padding: 8px 15px; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 20px; transition: 0.2s; }
+    .btn-voltar:hover { color: #ff3333; border-color: #ff3333; }
+    .container { max-width: 550px; margin: 0 auto; text-align: center; }
+    .card-erro { background: #0d0d11; border: 1px solid #222; border-radius: 8px; padding: 25px; text-align: left; margin-top: 20px; box-shadow: 0 4px 15px rgba(255, 51, 51, 0.05); }
+    .campo-texto { width: 100%; padding: 12px; background: #121216; border: 1px solid #222; border-radius: 4px; color: #fff; margin-top: 8px; margin-bottom: 5px; box-sizing: border-box; outline: none; transition: 0.2s; font-size: 14px; }
+    .campo-texto:focus { border-color: #ff3333; background: #16161c; }
+    .contador { font-size: 11px; color: #666; display: block; text-align: right; margin-bottom: 15px; }
+    .btn-reportar { background: linear-gradient(135deg, #ff3333, #aa0000); color: #fff; border: none; padding: 14px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; font-size: 15px; transition: 0.3s; box-shadow: 0 4px 10px rgba(255,51,51,0.2); }
+    .btn-reportar:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255,51,51,0.4); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="btn-voltar">⬅️ Voltar para o Início</a>
+
+    <h1 style="color:#ff3333; margin: 0 0 5px 0; font-size: 28px; text-shadow: 0 0 10px rgba(255,51,51,0.2);">🚨 CENTRAL DE ERROS</h1>
+    <p style="color:#aaa; font-size:14px; margin-top:0;">Encontrou algo quebrado? Avise a nossa equipe para consertarmos imediatamente!</p>
+
+    <div class="card-erro">
+      <label style="font-weight:bold; font-size:13px; color: #ccc;">1. Nome da Obra e Capítulo:</label>
+      <input type="text" id="obraErro" placeholder="Ex: Solo Leveling - Capítulo 01" class="campo-texto">
+      <span class="contador">&nbsp;</span>
+
+      <label style="font-weight:bold; font-size:13px; color: #ccc;">2. Descreva o Problema com Detalhes:</label>
+      <textarea id="descricaoErro" rows="4" maxlength="300" placeholder="Ex: A página 04 está cortada ou fora de ordem..." class="campo-texto" oninput="atualizarContador()"></textarea>
+      <span class="contador" id="charCount">0 / 300 caracteres</span>
+
+      <button onclick="enviarReport()" class="btn-reportar">📋 Gerar e Copiar Ticket de Erro</button>
+    </div>
+  </div>
+
+  <script>
+    function atualizarContador() {
+      let txt = document.getElementById("descricaoErro").value;
+      document.getElementById("charCount").innerText = txt.length + " / 300 caracteres";
+    }
+
+    function enviarReport() {
+      var obra = document.getElementById("obraErro").value.trim();
+      var desc = document.getElementById("descricaoErro").value.trim();
+      
+      if(!obra || !desc) {
+        alert("Por favor, preencha todos os campos antes de gerar o relatório!");
+        return;
+      }
+
+      var ticketCompleto = "[🚨 BUG REPORT SCAN]\n• Obra/Capítulo: " + obra + "\n• Problema: " + desc;
+      
+      navigator.clipboard.writeText(ticketCompleto).then(function() {
+        alert("Ticket de erro copiado! Cole o texto na nossa comunidade ou abra seu canal de suporte.");
+      });
+    }
+  </script>
+</body>
+</html>
