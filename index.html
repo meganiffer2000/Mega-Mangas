@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal da Scan - Início</title>
+  <style>
+    body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 0; }
+    header { background: #0a0a0c; padding: 20px; text-align: center; border-bottom: 1px solid #222; }
+    .logo { font-size: 32px; letter-spacing: 3px; font-weight: bold; color: #ff0055; text-shadow: 0 0 10px #ff0055; }
+    .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
+    nav a { color: #aaa; text-decoration: none; font-weight: bold; font-size: 14px; margin: 0 8px; transition: 0.2s; }
+    nav a:hover, nav a.active { color: #ff0055; }
+    .slider-box { width: 100%; height: 200px; position: relative; margin-bottom: 30px; overflow: hidden; border-radius: 8px; border: 1px solid #222; }
+    .slide-item { display: none; width: 100%; height: 100%; background-size: cover; background-position: center; position: relative; }
+    .slide-legenda { position: absolute; bottom: 15px; left: 20px; text-shadow: 2px 2px 4px #000; }
+    .agenda-box { background: #0d0d11; border: 1px solid #222; border-radius: 8px; padding: 15px; margin-bottom: 30px; }
+    .agenda-dia { display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid #1c1c22; font-size: 14px; }
+    .agenda-dia.hoje { color: #ff0055; font-weight: bold; border-left: 4px solid #ff0055; padding-left: 10px; }
+    .busca-container { text-align: center; margin-bottom: 20px; }
+    .campo-busca { width: 100%; max-width: 400px; padding: 10px 15px; border-radius: 20px; border: 2px solid #ff0055; background: #111; color: #fff; outline: none; }
+    .bar-az { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-bottom: 20px; }
+    .btn-az { background: #111; color: #ccc; border: 1px solid #333; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    .btn-az:hover, .btn-az.active { background: #ff0055; color: #fff; border-color: #ff0055; }
+    .grid-catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; }
+    .manga-item { background: #0d0d11; border: 1px solid #222; border-radius: 8px; padding: 10px; text-align: center; transition: 0.3s; }
+    .manga-item:hover { transform: scale(1.03); border-color: #ff0055; box-shadow: 0 0 15px rgba(255,0,0,0.4); }
+    .manga-item img { width: 100%; height: 220px; object-fit: cover; border-radius: 6px; }
+    .manga-item h3 { font-size: 15px; margin: 10px 0 5px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cap-badge { background: #ff0055; color: #fff; font-size: 11px; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">⚡ PORTAL DA SCAN</div>
+    <nav style="margin-top: 15px; display: flex; gap: 5px; justify-content: center; flex-wrap: wrap;">
+      <a href="index.html" class="active">🏠 Início</a> | 
+      <a href="noticias.html">📰 Notícias</a> | 
+      <a href="historico.html">⏱️ Histórico</a> | 
+      <a href="equipe.html">🛡️ Staff</a> | 
+      <a href="recrutamento.html">⚔️ Recrutamento</a> | 
+      <a href="doacoes.html">❤️ Apoiar</a> | 
+      <a href="reportar.html">🚨 Erros</a> | 
+      <a href="painel.html" style="color: #ffaa00;">⚙️ Painel Admin</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="slider-box">
+      <div class="slide-item" style="display:block; background-image: linear-gradient(to top, #000, transparent), url('https://placeholder.com');">
+        <div class="slide-legenda"><h2 style="margin:0; color:#ff0055; font-size:18px;">🔥 DESTAQUE DA SEMANA</h2><p style="margin:2px 0 0 0; color:#ccc; font-size:12px;">Confira as novas obras geradas no painel administrativo.</p></div>
+      </div>
+      <div class="slide-item" style="background-image: linear-gradient(to top, #000, transparent), url('https://placeholder.com');">
+        <div class="slide-legenda"><h2 style="margin:0; color:#00ffff; font-size:18px;">⚔️ SISTEMA ATUALIZADO</h2><p style="margin:2px 0 0 0; color:#ccc; font-size:12px;">Crie códigos de páginas de obras e leitores instantaneamente.</p></div>
+      </div>
+    </div>
+
+    <div class="agenda-box">
+      <h3 style="margin-top:0; color:#ff0055; font-size:16px;">📅 Cronograma da Semana</h3>
+      <div class="agenda-dia hoje"><span>Terça-feira (HOJE)</span><span>Lançamentos gerados via Painel de Controle 🚀</span></div>
+      <div class="agenda-dia"><span>Quinta-feira</span><span>Atualizações gerais da equipe</span></div>
+    </div>
+
+    <div class="busca-container">
+      <input type="text" id="campoBusca" onkeyup="filtrarCatalogo()" placeholder="🔍 Pesquisar no acervo..." class="campo-busca">
+    </div>
+
+    <div class="bar-az">
+      <button class="btn-az active" onclick="filtrarLetra('TODOS', this)">TODOS</button>
+      <button class="btn-az" onclick="filtrarLetra('C', this)">C</button>
+      <button class="btn-az" onclick="filtrarLetra('O', this)">O</button>
+      <button class="btn-az" onclick="filtrarLetra('S', this)">S</button>
+    </div>
+
+    <div class="grid-catalogo" id="gridObras">
+      <!-- Exemplo de como colar suas obras geradas -->
+      <div class="manga-item S">
+        <img src="https://placeholder.com" alt="Capa">
+        <h3>Obra de Exemplo</h3>
+        <span class="cap-badge">Catálogo</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let slideIdx = 0; rodarSlides();
+    function rodarSlides() {
+      let s = document.getElementsByClassName("slide-item");
+      for (let i = 0; i < s.length; i++) s[i].style.display = "none";  
+      slideIdx++; if (slideIdx > s.length) slideIdx = 1;    
+      s[slideIdx-1].style.display = "block"; setTimeout(rodarSlides, 4000);
+    }
+    function filtrarCatalogo() {
+      let input = document.getElementById('campoBusca').value.toLowerCase();
+      let itens = document.getElementsByClassName('manga-item');
+      for (let i = 0; i < itens.length; i++) {
+        let nome = itens[i].querySelector('h3').innerText.toLowerCase();
+        itens[i].style.display = nome.includes(input) ? "block" : "none";
+      }
+    }
+    function filtrarLetra(letra, botao) {
+      let botoes = document.querySelectorAll('.btn-az');
+      botoes.forEach(b => b.classList.remove('active')); botao.classList.add('active');
+      let itens = document.getElementsByClassName('manga-item');
+      for (let i = 0; i < itens.length; i++) {
+        if (letra === 'TODOS' || itens[i].classList.contains(letra)) { itens[i].style.display = "block"; } else { itens[i].style.display = "none"; }
+      }
+    }
+  </script>
+</body>
+</html>
