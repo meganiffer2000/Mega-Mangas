@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan - Notícias</title>
+  <style>
+    body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; }
+    .btn-voltar { background: #222; color: #fff; border: 1px solid #333; padding: 8px 15px; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: bold; }
+    .container { max-width: 800px; margin: 0 auto; }
+    .btn-filtro { background: #111; color: #ccc; border: 1px solid #333; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-right: 5px; }
+    .btn-filtro.ativo { background: #ff0055; color: #fff; border-color: #ff0055; }
+    .card-noticia { background: #0d0d11; border: 1px solid #222; border-radius: 8px; padding: 20px; margin-top: 20px; position: relative; }
+    .data-noticia { font-size: 11px; color: #ff0055; font-weight: bold; text-transform: uppercase; }
+    .card-noticia h2 { margin: 5px 0 10px 0; font-size: 20px; color: #00ffff; }
+    .card-noticia p { color: #ccc; font-size: 14px; line-height: 1.6; margin: 0; }
+    .tag-aviso { position: absolute; top: 20px; right: 20px; background: #ff3333; color: #fff; font-size: 11px; font-weight: bold; padding: 2px 8px; border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="btn-voltar">⬅️ Voltar para o Início</a>
+    <h1 style="color:#00ffff; margin-top: 0; font-size: 26px;">📰 MURAL DE NOTÍCIAS</h1>
+    
+    <div style="margin-top:15px;">
+      <button class="btn-filtro ativo" onclick="filtrar('todas', this)">Ver Todas</button>
+      <button class="btn-filtro" onclick="filtrar('aviso', this)">Alertas/Avisos</button>
+      <button class="btn-filtro" onclick="filtrar('lancamento', this)">Lançamentos</button>
+    </div>
+
+    <div class="card-noticia aviso">
+      <span class="tag-aviso">URGENTE</span>
+      <div class="data-noticia">Postado agora</div>
+      <h2>Fábrica de Páginas Lançada no Painel Admin!</h2>
+      <p>A partir de hoje, todas as fichas técnicas e leitores de capítulos criptografados serão criados de forma automatizada no nosso Painel de Controle protegido. Praticidade total para a staff.</p>
+      <div style="margin-top:15px; border-top:1px solid #1c1c22; padding-top:10px; display:flex; justify-content:flex-end;">
+        <button onclick="curtir(this, 'noticia_admin')" style="background:#111; border:1px solid #333; color:#fff; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:bold; cursor:pointer;">❤️ Curtir (<span class="like-cnt">0</span>)</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function filtrar(cat, btn) {
+      let b = document.querySelectorAll('.btn-filtro'); b.forEach(x => x.classList.remove('ativo')); btn.classList.add('ativo');
+      let cards = document.querySelectorAll('.card-noticia');
+      cards.forEach(c => {
+        if(cat === 'todas' || c.classList.contains(cat)) { c.style.display = "block"; } else { c.style.display = "none"; }
+      });
+    }
+    function curtir(btn, id) {
+      let cnt = btn.querySelector('.like-cnt');
+      if(!localStorage.getItem(id)) {
+        localStorage.setItem(id, "1"); cnt.innerText = parseInt(cnt.innerText) + 1;
+        btn.style.color = "#ff0055"; btn.style.borderColor = "#ff0055";
+      } else { alert("Você já curtiu esta notícia!"); }
+    }
+  </script>
+</body>
+</html>
